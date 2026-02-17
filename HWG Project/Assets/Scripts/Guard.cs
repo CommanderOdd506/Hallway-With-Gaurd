@@ -14,12 +14,18 @@ public class Guard : MonoBehaviour
     private EnemyState currentState;
     public EnemyState startingState;
     public float viewDistance = 10f;
+    public float searchBuffer = 60f;
+
+    private bool _seesPlayer;
+    private float _timeSinceLastSeen;
+    private Vector3 lastSeenSpot;
 
     [Range(0, 180)]
     public float viewAngle = 90f;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        _timeSinceLastSeen = searchBuffer + 0.01f;
         navMeshAgent = GetComponent<NavMeshAgent>();
         player = GameObject.FindObjectOfType<PlayerMovement>().transform;
         currentState = startingState;
@@ -32,7 +38,8 @@ public class Guard : MonoBehaviour
 
         if (distanceToPlayer > viewDistance)
         {
-            currentState = EnemyState.Patrol;
+            _seesPlayer = false;
+            _timeSinceLastSeen += Time.deltaTime;
             return;
         }
 
@@ -43,11 +50,14 @@ public class Guard : MonoBehaviour
 
         if (angle < viewAngle * 0.5f)
         {
-            currentState = EnemyState.Aggro;
+            _seesPlayer = true;
+            _timeSinceLastSeen = 0;
+            lastSeenSpot = player.position;
         }
         else
         {
-            currentState = EnemyState.Patrol;
+            _timeSinceLastSeen+= Time.deltaTime;
+            _seesPlayer = false;
         }
     }
 
@@ -55,9 +65,13 @@ public class Guard : MonoBehaviour
     void Update()
     {
         CheckSight();
-        if (currentState == EnemyState.Aggro)
+        if (_seesPlayer)
         {
             navMeshAgent.SetDestination(player.position);
+        }
+        else if (_timeSinceLastSeen < searchBuffer)
+        {
+            navMeshAgent.SetDestination(lastSeenSpot);
         }
         else
         {
@@ -95,4 +109,3 @@ public class Guard : MonoBehaviour
         Gizmos.DrawRay(transform.position, rightRayDirection * viewDistance);
     }
 }
- 
