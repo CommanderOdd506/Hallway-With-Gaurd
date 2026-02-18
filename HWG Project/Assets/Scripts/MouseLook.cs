@@ -8,6 +8,7 @@ public class MouseLook : MonoBehaviour
     private float _pitch;
     public float pitchMin = -80f;
     public float pitchMax = 80f;
+    public float sens = 0.3f;
 
     Vector2 _lookInput;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -27,9 +28,9 @@ public class MouseLook : MonoBehaviour
         float mouseX = _lookInput.x;
         float mouseY = _lookInput.y;
 
-        playerBody.Rotate(Vector3.up * mouseX);
+        playerBody.Rotate(Vector3.up * mouseX * sens);
 
-        _pitch -= mouseY;
+        _pitch -= mouseY * sens;
         _pitch = Mathf.Clamp(_pitch, pitchMin, pitchMax);
         head.localRotation = Quaternion.Euler(_pitch, 0f, 0f);
     }

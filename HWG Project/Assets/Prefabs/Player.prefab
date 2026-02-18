@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3874753423969544413}
   - component: {fileID: 5961985089421903987}
   - component: {fileID: 5325930868001550344}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Main Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
@@ -151,11 +151,13 @@ GameObject:
   - component: {fileID: 4477498169037570588}
   - component: {fileID: 4291777425700861948}
   - component: {fileID: 6183750952110412478}
+  - component: {fileID: 7755195424913942945}
   - component: {fileID: 2373295566501490440}
   - component: {fileID: 692843993064298975}
-  m_Layer: 0
+  - component: {fileID: 3066895940884411363}
+  m_Layer: 3
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -271,6 +273,7 @@ MonoBehaviour:
   head: {fileID: 1557846952533931073}
   pitchMin: -80
   pitchMax: 80
+  sens: 0.3
 --- !u!114 &6183750952110412478
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -288,6 +291,22 @@ MonoBehaviour:
   gravity: -30
   groundStickForce: -5
   jumpHeight: 1.1
+--- !u!114 &7755195424913942945
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3106560855502723765}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9cdfa58cb7d0a24b95c80218cdffbef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerInteraction
+  interactableLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  interactionRange: 3
 --- !u!114 &2373295566501490440
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -343,3 +362,30 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!54 &3066895940884411363
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3106560855502723765}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 2
