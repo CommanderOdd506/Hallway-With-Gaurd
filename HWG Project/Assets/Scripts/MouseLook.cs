@@ -25,12 +25,14 @@ public class MouseLook : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (PauseMenu.instance.IsPaused()) return;
+
         float mouseX = _lookInput.x;
         float mouseY = _lookInput.y;
 
-        playerBody.Rotate(Vector3.up * mouseX * sens);
+        playerBody.Rotate(Vector3.up * mouseX * sens * 0.5f);
 
-        _pitch -= mouseY * sens;
+        _pitch -= mouseY * sens * 0.5f;
         _pitch = Mathf.Clamp(_pitch, pitchMin, pitchMax);
         head.localRotation = Quaternion.Euler(_pitch, 0f, 0f);
     }

@@ -20,6 +20,8 @@ public class PlayerInteraction : MonoBehaviour
         if (!_interactPressed)
             return;
 
+        if (PauseMenu.instance.IsPaused()) return;
+
         _interactPressed = false; // consume input immediately
 
         RaycastHit hit;
