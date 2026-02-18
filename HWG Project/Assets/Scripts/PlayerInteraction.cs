@@ -6,6 +6,8 @@ public class PlayerInteraction : MonoBehaviour
     [SerializeField] private LayerMask interactableLayer;
     [SerializeField] private float interactionRange = 3f;
 
+    public GameObject interactPrompt;
+
     private bool _interactPressed;
     private Camera playerCamera;
 
@@ -17,31 +19,48 @@ public class PlayerInteraction : MonoBehaviour
 
     void Update()
     {
-        if (!_interactPressed)
-            return;
-
         if (PauseMenu.instance.IsPaused()) return;
 
-        _interactPressed = false; // consume input immediately
-
         RaycastHit hit;
-
-        if (Physics.Raycast(
+        bool hitSomething = Physics.Raycast(
             playerCamera.transform.position,
             playerCamera.transform.forward,
             out hit,
             interactionRange,
-            interactableLayer))
+            interactableLayer
+        );
+
+        if (hitSomething)
         {
             Interactable interactable = hit.collider.GetComponent<Interactable>();
 
             if (interactable != null)
             {
-                Debug.Log("Ineracted");
-                interactable.BaseInteract();
+
+                if (interactPrompt != null && !interactPrompt.activeSelf)
+                    interactPrompt.SetActive(true);
+
+                if (_interactPressed)
+                {
+                    _interactPressed = false;
+                    interactable.BaseInteract();
+                    Debug.Log("Interacted with: " + interactable.name);
+                }
+            }
+            else
+            {
+                if (interactPrompt != null && interactPrompt.activeSelf)
+                    interactPrompt.SetActive(false);
             }
         }
+        else
+        {
+
+            if (interactPrompt != null && interactPrompt.activeSelf)
+                interactPrompt.SetActive(false);
+        }
     }
+
 
     void OnInteract(InputValue value)
     {

@@ -75,8 +75,15 @@ public class PlayerMovement : MonoBehaviour
         _timeSinceJumpPressed += Time.deltaTime;
 
         bool bufferedJump = _timeSinceJumpPressed <= jumpBuffer;
-
-        float targetSpeed = _isSprinting ? sprintSpeed : walkSpeed;
+        float targetSpeed;
+        if (_currentStamina > 0 && _isSprinting)
+        {
+            targetSpeed = sprintSpeed;
+        }
+        else
+        {
+            targetSpeed = walkSpeed;
+        }
         _currentSpeed = Mathf.MoveTowards(_currentSpeed, targetSpeed, 20f * Time.deltaTime);
 
         if (bufferedJump && isGrounded)
