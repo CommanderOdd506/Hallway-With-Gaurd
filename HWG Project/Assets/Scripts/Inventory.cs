@@ -2,12 +2,14 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.InputSystem;
+
 [CreateAssetMenu]
 public class Item : ScriptableObject
 {
     public string itemName;
     public RawImage itemImage;
 }
+
 public class Inventory : MonoBehaviour
 {
 
@@ -44,6 +46,43 @@ public class Inventory : MonoBehaviour
         {
             Debug.Log("Inventory Full");
         }
+    }
+
+    public void DropItemBySlot(int slot)
+    {
+        if (slot == 1 && inventorySlot1 != null)
+        {
+            inventorySlot1 = null;
+            UpdateUI();
+        }
+        else if (slot == 2 && inventorySlot2 != null)
+        {
+            inventorySlot2 = null;
+            UpdateUI();
+        }
+        else
+        {
+            Debug.Log("Invalid slot number");
+        }
+    }
+
+    public void DropItem(Item item)
+    {
+        if (inventorySlot1 == item) 
+        {
+            inventorySlot1 = null;
+            UpdateUI();
+        }
+        else if (inventorySlot2 == item)
+        {
+            inventorySlot2 = null;
+            UpdateUI();
+        }
+        else
+        {
+            Debug.Log("Item not in inventory");
+        }
+
     }
 
     void OnCycleSlot(InputValue value)
