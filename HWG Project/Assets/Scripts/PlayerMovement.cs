@@ -11,7 +11,7 @@ public class PlayerMovement : MonoBehaviour
 
     public float walkSpeed;
     public float sprintSpeed;
-    private bool jumpPressed;
+
     public float jumpBuffer = 0.12f;
     public float gravity = -30f;
     public float groundStickForce = -5f;
@@ -20,6 +20,7 @@ public class PlayerMovement : MonoBehaviour
     public float maxStamina = 100f;
     public float staminaDrainPerSecond = 20f;
     public float staminaRegenPerSecond = 15f;
+    public float staminaRecoveryThreshold = 20f; 
 
     public Slider staminaSlider;
 
@@ -27,7 +28,9 @@ public class PlayerMovement : MonoBehaviour
     private float _timeSinceJumpPressed = 0.13f;
     private Vector3 _velocity;
     private float _currentSpeed;
+
     private bool _isSprinting;
+    private bool _sprintLocked; 
 
     void Awake()
     {
@@ -42,8 +45,19 @@ public class PlayerMovement : MonoBehaviour
         if (PauseMenu.instance.IsPaused()) return;
 
         bool sprintHeld = sprintAction.IsPressed();
-        bool canSprint = _currentStamina > 0f;
 
+
+        if (_currentStamina <= 0f)
+        {
+            _sprintLocked = true;
+        }
+
+        if (!sprintHeld && _currentStamina >= staminaRecoveryThreshold)
+        {
+            _sprintLocked = false;
+        }
+
+        bool canSprint = !_sprintLocked && _currentStamina > 0f;
         _isSprinting = sprintHeld && canSprint;
 
         if (_isSprinting)
@@ -58,33 +72,16 @@ public class PlayerMovement : MonoBehaviour
         _currentStamina = Mathf.Clamp(_currentStamina, 0f, maxStamina);
 
         if (staminaSlider != null)
-        {
             staminaSlider.value = _currentStamina / maxStamina;
-        }
 
-        Vector3 forward = transform.forward;
-        forward.y = 0f;
-        forward.Normalize();
 
-        Vector3 right = transform.right;
-        right.y = 0f;
-        right.Normalize();
+        float targetSpeed = _isSprinting ? sprintSpeed : walkSpeed;
+        _currentSpeed = Mathf.MoveTowards(_currentSpeed, targetSpeed, 20f * Time.deltaTime);
 
         bool isGrounded = controller.isGrounded;
 
         _timeSinceJumpPressed += Time.deltaTime;
-
         bool bufferedJump = _timeSinceJumpPressed <= jumpBuffer;
-        float targetSpeed;
-        if (_currentStamina > 0 && _isSprinting)
-        {
-            targetSpeed = sprintSpeed;
-        }
-        else
-        {
-            targetSpeed = walkSpeed;
-        }
-        _currentSpeed = Mathf.MoveTowards(_currentSpeed, targetSpeed, 20f * Time.deltaTime);
 
         if (bufferedJump && isGrounded)
         {
@@ -97,8 +94,15 @@ public class PlayerMovement : MonoBehaviour
         else
             _velocity.y += gravity * Time.deltaTime;
 
-        Vector3 worldDirection = (forward * _moveInput.y + right * _moveInput.x);
-        worldDirection = worldDirection.normalized;
+        Vector3 forward = transform.forward;
+        forward.y = 0f;
+        forward.Normalize();
+
+        Vector3 right = transform.right;
+        right.y = 0f;
+        right.Normalize();
+
+        Vector3 worldDirection = (forward * _moveInput.y + right * _moveInput.x).normalized;
         Vector3 horizontal = worldDirection * _currentSpeed;
 
         Vector3 motion = horizontal + new Vector3(0f, _velocity.y, 0f);
@@ -108,9 +112,7 @@ public class PlayerMovement : MonoBehaviour
     void OnJump(InputValue value)
     {
         if (value.isPressed)
-        {
             _timeSinceJumpPressed = 0f;
-        }
     }
 
     void OnMove(InputValue value)
