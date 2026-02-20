@@ -30,6 +30,15 @@ public class Inventory : MonoBehaviour
         UpdateUI();
     }
 
+    void OnDrop(InputValue value)
+    {
+        if (value.isPressed)
+        {
+            DropItemBySlot(activeSlot);
+            Debug.Log("Dropped item in slot " + activeSlot);
+        }
+    }
+
     public void GiveItem(Item item)
     {
         if (inventorySlot1 == null)
