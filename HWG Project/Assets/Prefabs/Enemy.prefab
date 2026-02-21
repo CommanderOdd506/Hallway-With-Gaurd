@@ -111,9 +111,19 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   startingState: 0
-  viewDistance: 10
-  searchBuffer: 10
-  viewAngle: 90
+  viewDistance: 13
+  searchBuffer: 12
+  innerDetectionRadius: 3
+  distractionDistance: 20
+  distractionTimer: 15
+  rotateSpeed: 4
+  goblinHeads:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  goblinHeadDistance: 35
+  aggroMemoryDuration: 2
+  viewAngle: 105
 --- !u!65 &2195539182924008360
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -145,10 +155,10 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 1
-  m_Acceleration: 8
+  m_Speed: 2
+  m_Acceleration: 40
   avoidancePriority: 50
-  m_AngularSpeed: 300
+  m_AngularSpeed: 720
   m_StoppingDistance: 1.5
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
