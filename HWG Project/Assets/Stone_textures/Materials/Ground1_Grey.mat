@@ -63,7 +63,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
+<<<<<<< HEAD:HWG Project/Assets/Stone_textures/Materials/Ground1_Grey.mat
         m_Texture: {fileID: 2800000, guid: 03abdfc9ddfc05541b25dbb852fc10e3, type: 3}
+=======
+        m_Texture: {fileID: 2800000, guid: 9659a82ef4f45ea42800c14b9e04eb96, type: 3}
+>>>>>>> df4014ff313a54f7e7049592e8ffc4ba65a8bdcf:HWG Project/Assets/Material_Textures/PBR_Materials/500_Materials/Materials/Wood/mWood_10.mat
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
