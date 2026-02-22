@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:HWG Project/Assets/Materials/Material_Textures/PBR_Materials/500_Materials/Materials/Panel.meta
 guid: 444e464b5c3ebcb46b4408f62bb2a229
+========
+guid: 7218c914c1dff5441bb7445bd6ef3ccf
+>>>>>>>> Level-Design-2:HWG Project/Assets/Materials_Pack/PBR_Materials/500_Materials/Materials/Panel.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}

@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:HWG Project/Assets/Materials/Material_Textures/PBR_Materials/500_Materials/Textures/Walls.meta
 guid: 1f71829288a0a6a4485d981df77f1dc3
+========
+guid: 12329d5744d3b0240bf5a00fdd73a644
+>>>>>>>> Level-Design-2:HWG Project/Assets/Materials_Pack/PBR_Materials/500_Materials/Textures/Walls.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}

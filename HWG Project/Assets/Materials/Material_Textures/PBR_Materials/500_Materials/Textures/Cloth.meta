@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:HWG Project/Assets/Materials/Material_Textures/PBR_Materials/500_Materials/Textures/Cloth.meta
 guid: 189e80101c6c1db419e60f8d39d77200
+========
+guid: d395dcaf03286a148b61f3a1bda75e6c
+>>>>>>>> Level-Design-2:HWG Project/Assets/Materials_Pack/PBR_Materials/500_Materials/Materials/Cloth.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}
