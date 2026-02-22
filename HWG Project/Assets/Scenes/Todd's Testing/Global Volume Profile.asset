@@ -80,10 +80,10 @@ MonoBehaviour:
     m_Value: {x: 1, y: 1, z: 1, w: 0}
   gamma:
     m_OverrideState: 1
-    m_Value: {x: 1, y: 1, z: 1, w: 0.019941578}
+    m_Value: {x: 1, y: 1, z: 1, w: 0.05264804}
   gain:
     m_OverrideState: 1
-    m_Value: {x: 1, y: 1, z: 1, w: 0.091463424}
+    m_Value: {x: 1, y: 1, z: 1, w: 0.33524126}
 --- !u!114 &-4689589580788750415
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -405,10 +405,10 @@ MonoBehaviour:
     m_Value: 1
   threshold:
     m_OverrideState: 1
-    m_Value: 0.7
+    m_Value: 0.85
   intensity:
     m_OverrideState: 1
-    m_Value: 0.4
+    m_Value: 0.19
   scatter:
     m_OverrideState: 1
     m_Value: 0.7
