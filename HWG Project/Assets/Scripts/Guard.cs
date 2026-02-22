@@ -20,6 +20,9 @@ public class Guard : MonoBehaviour
     public float innerDetectionRadius = 3f;
     public float distractionDistance = 20f;
     public float distractionTimer = 15f;
+    public float normalSpeed = 2f;
+    public float aggroSpeed = 3.2f;
+    public float rotateSpeed = 4f;
 
     public GameObject[] goblinHeads;
     public float goblinHeadDistance = 35f;
@@ -161,7 +164,16 @@ public class Guard : MonoBehaviour
     {
         CheckSight();
         CheckState();
-        UpdateGoblinHeads(); 
+        UpdateGoblinHeads();
+
+        if (currentState == EnemyState.Aggro)
+        {
+            navMeshAgent.speed = aggroSpeed;
+        }
+        else
+        {
+            navMeshAgent.speed = normalSpeed;
+        }
 
         switch (currentState)
         {
@@ -203,7 +215,29 @@ public class Guard : MonoBehaviour
     private void AggroState()
     {
         navMeshAgent.SetDestination(player.position);
+
+        float distanceToPlayer = Vector3.Distance(transform.position, player.position);
+
+        if (distanceToPlayer <= navMeshAgent.stoppingDistance + 0.2f)
+        {
+            navMeshAgent.updateRotation = false;
+
+            Vector3 lookDirection = player.position - transform.position;
+            lookDirection.y = 0f;
+
+            if (lookDirection != Vector3.zero)
+            {
+                Quaternion targetRotation = Quaternion.LookRotation(lookDirection);
+                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotateSpeed * Time.deltaTime
+                );
+            }
+        }
+        else
+        {
+            navMeshAgent.updateRotation = true;
+        }
     }
+
 
     private void PatrolState()
     {
