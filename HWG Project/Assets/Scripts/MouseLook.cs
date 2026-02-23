@@ -16,11 +16,22 @@ public class MouseLook : MonoBehaviour
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+
+        if (PlayerPrefs.HasKey("MouseSensitivity"))
+        {
+            sens = PlayerPrefs.GetFloat("MouseSensitivity");
+        }
     }
 
     public void OnLook(InputValue value)
     {
         _lookInput = value.Get<Vector2>();
+    }
+    public void SetSensitivity(float newSensetivity)
+    {
+        if (newSensetivity == sens) return;
+
+        sens = newSensetivity;
     }
     // Update is called once per frame
     void Update()

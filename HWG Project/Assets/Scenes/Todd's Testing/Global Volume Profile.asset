@@ -80,7 +80,7 @@ MonoBehaviour:
     m_Value: {x: 1, y: 1, z: 1, w: 0}
   gamma:
     m_OverrideState: 1
-    m_Value: {x: 1, y: 1, z: 1, w: 0.05264804}
+    m_Value: {x: 1, y: 1, z: 1, w: 0.22764803}
   gain:
     m_OverrideState: 1
     m_Value: {x: 1, y: 1, z: 1, w: 0.33524126}
@@ -291,8 +291,8 @@ MonoBehaviour:
           inWeight: 0
           outWeight: 0
         - serializedVersion: 3
-          time: 0.6059406
-          value: 0.59504133
+          time: 0.6118881
+          value: 0.30075186
           inSlope: 0
           outSlope: 0
           tangentMode: 0
