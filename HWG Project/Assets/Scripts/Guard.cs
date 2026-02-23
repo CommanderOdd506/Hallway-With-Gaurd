@@ -13,6 +13,7 @@ public class Guard : MonoBehaviour
     public Transform[] PatrolPoints;
     private NavMeshAgent navMeshAgent;
     private Transform player;
+    private Animator animator;
     private EnemyState currentState;
     public EnemyState startingState;
     public float viewDistance = 10f;
@@ -47,6 +48,7 @@ public class Guard : MonoBehaviour
         _timeSinceLastSeen = searchBuffer + 0.01f;
         navMeshAgent = GetComponent<NavMeshAgent>();
         player = GameObject.FindObjectOfType<PlayerMovement>().transform;
+        animator = GetComponentInChildren<Animator>();
         currentState = startingState;
     }
 
@@ -165,6 +167,7 @@ public class Guard : MonoBehaviour
         CheckSight();
         CheckState();
         UpdateGoblinHeads();
+        UpdateAnimator();
 
         if (currentState == EnemyState.Aggro)
         {
@@ -237,7 +240,15 @@ public class Guard : MonoBehaviour
             navMeshAgent.updateRotation = true;
         }
     }
+    private void UpdateAnimator()
+    {
+        float speedPercent = navMeshAgent.velocity.magnitude / aggroSpeed;
+        animator.SetFloat("Speed", speedPercent);
 
+        animator.SetBool("IsAggro", currentState == EnemyState.Aggro);
+        animator.SetBool("IsSearching", currentState == EnemyState.Search);
+        animator.SetBool("IsDistracted", currentState == EnemyState.Distracted);
+    }
 
     private void PatrolState()
     {

@@ -15088,26 +15088,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1037025703602989670, guid: 85693f31e0b535f459bf7548e3be92bd, type: 3}
-      propertyPath: m_Layer
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 1179233904843461785, guid: 85693f31e0b535f459bf7548e3be92bd, type: 3}
-      propertyPath: m_RenderingLayerMask
-      value: 128
-      objectReference: {fileID: 0}
-    - target: {fileID: 3057217266059404431, guid: 85693f31e0b535f459bf7548e3be92bd, type: 3}
-      propertyPath: m_Layer
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 3134059932970550576, guid: 85693f31e0b535f459bf7548e3be92bd, type: 3}
-      propertyPath: m_RenderingLayerMask
-      value: 128
-      objectReference: {fileID: 0}
-    - target: {fileID: 3768848886342886929, guid: 85693f31e0b535f459bf7548e3be92bd, type: 3}
-      propertyPath: m_RenderingLayerMask
-      value: 128
-      objectReference: {fileID: 0}
     - target: {fileID: 3854792583211842985, guid: 85693f31e0b535f459bf7548e3be92bd, type: 3}
       propertyPath: m_LocalPosition.x
       value: 191.3737
@@ -15147,18 +15127,6 @@ PrefabInstance:
     - target: {fileID: 3854792583211842985, guid: 85693f31e0b535f459bf7548e3be92bd, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4552618561913359180, guid: 85693f31e0b535f459bf7548e3be92bd, type: 3}
-      propertyPath: m_Layer
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 5885325877302831468, guid: 85693f31e0b535f459bf7548e3be92bd, type: 3}
-      propertyPath: m_RenderingLayerMask
-      value: 128
-      objectReference: {fileID: 0}
-    - target: {fileID: 7318122963026168031, guid: 85693f31e0b535f459bf7548e3be92bd, type: 3}
-      propertyPath: PatrolPoints.Array.size
-      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 7318122963026168031, guid: 85693f31e0b535f459bf7548e3be92bd, type: 3}
       propertyPath: 'goblinHeads.Array.data[0]'
@@ -15212,29 +15180,9 @@ PrefabInstance:
       propertyPath: 'PatrolPoints.Array.data[9]'
       value: 
       objectReference: {fileID: 425083797}
-    - target: {fileID: 7581733580678346076, guid: 85693f31e0b535f459bf7548e3be92bd, type: 3}
-      propertyPath: m_Layer
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 7849296693146607579, guid: 85693f31e0b535f459bf7548e3be92bd, type: 3}
-      propertyPath: m_RenderingLayerMask
-      value: 128
-      objectReference: {fileID: 0}
-    - target: {fileID: 8850082247860042274, guid: 85693f31e0b535f459bf7548e3be92bd, type: 3}
-      propertyPath: m_Layer
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 9133665088236315419, guid: 85693f31e0b535f459bf7548e3be92bd, type: 3}
-      propertyPath: m_Layer
-      value: 10
-      objectReference: {fileID: 0}
     - target: {fileID: 9190684925376292079, guid: 85693f31e0b535f459bf7548e3be92bd, type: 3}
       propertyPath: m_Name
       value: Enemy
-      objectReference: {fileID: 0}
-    - target: {fileID: 9190684925376292079, guid: 85693f31e0b535f459bf7548e3be92bd, type: 3}
-      propertyPath: m_Layer
-      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
