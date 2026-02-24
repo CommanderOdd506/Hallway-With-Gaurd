@@ -26,15 +26,15 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1037025703602989670}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.7269423, y: 0.024286492, z: -0.016350953, w: 0.6860742}
-  m_LocalPosition: {x: -0.0005934265, y: 0.003379169, z: 0.020203847}
-  m_LocalScale: {x: 1.005781, y: 1.005781, z: 1.0057813}
+  m_LocalRotation: {x: -0.72694236, y: 0.024286486, z: -0.016350934, w: 0.68607414}
+  m_LocalPosition: {x: -0.00059342966, y: 0.0033791773, z: 0.02020385}
+  m_LocalScale: {x: 1.0057812, y: 1.005781, z: 1.0057812}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2803512388814861402}
   - {fileID: 6219240312612424739}
   - {fileID: 6135616875185309607}
-  m_Father: {fileID: 7322238932855181379}
+  m_Father: {fileID: 194946074593334642}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &7130022455358495270
 MeshFilter:
@@ -359,6 +359,38 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &8750931903511678772
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 194946074593334642}
+  m_Layer: 0
+  m_Name: Neck
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &194946074593334642
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8750931903511678772}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 2255569075632667426}
+  m_Father: {fileID: 7322238932855181379}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8850082247860042274
 GameObject:
   m_ObjectHideFlags: 0
@@ -511,7 +543,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 5.355, y: 0.9434, z: 1.64772}
-  m_LocalScale: {x: 0.7294135, y: 1.8963417, z: 0.7294135}
+  m_LocalScale: {x: 1.0130825, y: 2.633829, z: 1.0130825}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8469754320144185761}
@@ -597,14 +629,15 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  neckPivot: {fileID: 194946074593334642}
   startingState: 0
   viewDistance: 13
   searchBuffer: 7.8
   innerDetectionRadius: 3
   distractionDistance: 20
   distractionTimer: 15
-  normalSpeed: 2
-  aggroSpeed: 3.2
+  normalSpeed: 3
+  aggroSpeed: 4.2
   rotateSpeed: 4
   goblinHeads:
   - {fileID: 0}
@@ -648,7 +681,7 @@ NavMeshAgent:
   m_Acceleration: 40
   avoidancePriority: 50
   m_AngularSpeed: 720
-  m_StoppingDistance: 1.5
+  m_StoppingDistance: 2
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
@@ -666,15 +699,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 7cba440b59966c84ea71f46ef122bb1c, type: 3}
       propertyPath: m_LocalScale.x
-      value: 23.172434
+      value: 18.31271
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7cba440b59966c84ea71f46ef122bb1c, type: 3}
       propertyPath: m_LocalScale.y
-      value: 8.9131
+      value: 7.043844
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7cba440b59966c84ea71f46ef122bb1c, type: 3}
       propertyPath: m_LocalScale.z
-      value: 23.172434
+      value: 18.31271
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7cba440b59966c84ea71f46ef122bb1c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -781,7 +814,7 @@ PrefabInstance:
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: -3321919801592875672, guid: 7cba440b59966c84ea71f46ef122bb1c, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 2255569075632667426}
+      addedObject: {fileID: 194946074593334642}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 7cba440b59966c84ea71f46ef122bb1c, type: 3}
       insertIndex: -1

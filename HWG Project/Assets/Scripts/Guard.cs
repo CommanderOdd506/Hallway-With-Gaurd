@@ -8,12 +8,14 @@ public enum EnemyState
     Search,
     Distracted
 }
+
 public class Guard : MonoBehaviour
 {
     public Transform[] PatrolPoints;
     private NavMeshAgent navMeshAgent;
     private Transform player;
     private Animator animator;
+    public Transform neckPivot;
     private EnemyState currentState;
     public EnemyState startingState;
     public float viewDistance = 10f;
@@ -24,6 +26,7 @@ public class Guard : MonoBehaviour
     public float normalSpeed = 2f;
     public float aggroSpeed = 3.2f;
     public float rotateSpeed = 4f;
+    public float headRotateSpeed = 6f;
 
     public GameObject[] goblinHeads;
     public float goblinHeadDistance = 35f;
@@ -38,6 +41,7 @@ public class Guard : MonoBehaviour
     private int _currentHeadIndex;
     private float _aggroMemoryTimer;
     public float aggroMemoryDuration = 4f;
+    private Quaternion defaultRotation;
 
     [Range(0, 180)]
     public float viewAngle = 90f;
@@ -50,6 +54,7 @@ public class Guard : MonoBehaviour
         player = GameObject.FindObjectOfType<PlayerMovement>().transform;
         animator = GetComponentInChildren<Animator>();
         currentState = startingState;
+        defaultRotation = neckPivot.localRotation;
     }
 
     void CheckSight()
@@ -141,6 +146,7 @@ public class Guard : MonoBehaviour
         if (dis <= goblinHeadDistance)
             goblinHeads[headIndex].SetActive(true);
     }
+
     public void CheckState()
     {
         if (_seesPlayer)
@@ -172,10 +178,16 @@ public class Guard : MonoBehaviour
         if (currentState == EnemyState.Aggro)
         {
             navMeshAgent.speed = aggroSpeed;
+            RotateHead();
         }
         else
         {
             navMeshAgent.speed = normalSpeed;
+            neckPivot.localRotation = Quaternion.Slerp(
+            neckPivot.localRotation,
+            defaultRotation,
+            headRotateSpeed * Time.deltaTime
+            );
         }
 
         switch (currentState)
@@ -197,6 +209,37 @@ public class Guard : MonoBehaviour
                 break;
         }
     }
+
+    float NormalizeAngle(float angle)
+    {
+        if (angle > 180f)
+            angle -= 360f;
+
+        return angle;
+    }
+
+    private void RotateHead()
+    {
+        Vector3 direction = player.position - neckPivot.position;
+        Quaternion worldTargetRotation = Quaternion.LookRotation(direction);
+
+        // Convert to local space
+        Quaternion localTargetRotation = Quaternion.Inverse(neckPivot.parent.rotation) * worldTargetRotation;
+
+        Vector3 localEuler = localTargetRotation.eulerAngles;
+
+        localEuler.x = NormalizeAngle(localEuler.x);
+        localEuler.y = NormalizeAngle(localEuler.y);
+
+        localEuler.x = Mathf.Clamp(localEuler.x, -30f, 30f);
+        localEuler.y = Mathf.Clamp(localEuler.y, -60f, 60f);
+
+        // Rebuild rotation
+        Quaternion clampedRotation = Quaternion.Euler(localEuler);
+
+        neckPivot.localRotation = Quaternion.Slerp(neckPivot.localRotation,clampedRotation,headRotateSpeed * Time.deltaTime);
+    }
+
     private void DistractedState()
     {
         navMeshAgent.SetDestination(distractionPoint);
@@ -240,6 +283,7 @@ public class Guard : MonoBehaviour
             navMeshAgent.updateRotation = true;
         }
     }
+
     private void UpdateAnimator()
     {
         float speedPercent = navMeshAgent.velocity.magnitude / aggroSpeed;

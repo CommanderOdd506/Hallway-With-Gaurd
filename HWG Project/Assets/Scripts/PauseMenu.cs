@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.InputSystem;
+using UnityEngine.EventSystems;
 
 public class PauseMenu : MonoBehaviour
 {
@@ -9,6 +10,12 @@ public class PauseMenu : MonoBehaviour
     public GameObject pausePanel;
     public GameObject deathPanel;
     public GameObject winPanel;
+
+    public GameObject mainPage;
+    public GameObject settingsPage;
+
+    public GameObject firstButtonOnSettingsPage;
+    public GameObject firstButtonOnMainPage;
 
     private bool paused;
     private bool lost = false;
@@ -36,6 +43,29 @@ public class PauseMenu : MonoBehaviour
             else
                 PauseGame();
         }
+    }
+
+    public void OpenSettingsPage()
+    {
+        mainPage.SetActive(false);
+        settingsPage.SetActive(true);
+
+        // Clear selection first
+        EventSystem.current.SetSelectedGameObject(null);
+
+        // Set new selected button
+        EventSystem.current.SetSelectedGameObject(firstButtonOnSettingsPage);
+    }
+
+    public void OpenMainPage()
+    {
+        mainPage.SetActive(true);
+        settingsPage.SetActive(false);
+
+        EventSystem.current.SetSelectedGameObject(null);
+
+        // Set new selected button
+        EventSystem.current.SetSelectedGameObject(firstButtonOnMainPage);
     }
 
     public void LoseGame()
@@ -72,6 +102,7 @@ public class PauseMenu : MonoBehaviour
             Time.timeScale = 0f;
             if (pausePanel != null)
                 pausePanel.SetActive(true);
+                OpenMainPage();
 
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
