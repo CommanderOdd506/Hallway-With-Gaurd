@@ -13,6 +13,8 @@ public class Inventory : MonoBehaviour
     public TextMeshProUGUI slotText1;
     public TextMeshProUGUI slotText2;
 
+    public GameObject[] viewModelReferences;
+
     public RawImage slotImage1;
     public RawImage slotImage2;
 
@@ -25,6 +27,7 @@ public class Inventory : MonoBehaviour
     void Start()
     {
         UpdateUI();
+        UpdateViewModel();
     }
 
     void OnDrop(InputValue value)
@@ -42,11 +45,13 @@ public class Inventory : MonoBehaviour
         {
             inventorySlot1 = item;
             UpdateUI();
+            UpdateViewModel();
         }
         else if (inventorySlot2 == null)
         {
             inventorySlot2 = item;
             UpdateUI();
+            UpdateViewModel();
         }
         else
         {
@@ -60,11 +65,13 @@ public class Inventory : MonoBehaviour
         {
             inventorySlot1 = null;
             UpdateUI();
+            UpdateViewModel();
         }
         else if (slot == 2 && inventorySlot2 != null)
         {
             inventorySlot2 = null;
             UpdateUI();
+            UpdateViewModel();
         }
         else
         {
@@ -78,11 +85,13 @@ public class Inventory : MonoBehaviour
         {
             inventorySlot1 = null;
             UpdateUI();
+            UpdateViewModel();
         }
         else if (inventorySlot2 == item)
         {
             inventorySlot2 = null;
             UpdateUI();
+            UpdateViewModel();
         }
         else
         {
@@ -101,14 +110,36 @@ public class Inventory : MonoBehaviour
         {
             activeSlot = activeSlot == 1 ? 2 : 1;
             UpdateUI();
+            UpdateViewModel();
         }
         else if (direction < 0f)
         {
             activeSlot = activeSlot == 1 ? 2 : 1;
             UpdateUI();
+            UpdateViewModel();
         }
     }
-    // Update is called once per frame
+
+    void UpdateViewModel()
+    {
+        Item currentItem = activeSlot == 1 ? inventorySlot1 : inventorySlot2;
+
+        for (int i = 0; i < viewModelReferences.Length; i++)
+        {
+            viewModelReferences[i].SetActive(false);
+        }
+
+
+        if (currentItem == null)
+            return;
+
+        if (currentItem.referenceIndex < 0 || currentItem.referenceIndex >= viewModelReferences.Length)
+            return;
+
+        viewModelReferences[currentItem.referenceIndex].SetActive(true);
+    }
+
+
     void UpdateUI()
     {
         if (inventorySlot1 != null)
