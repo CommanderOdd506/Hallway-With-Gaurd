@@ -110,6 +110,7 @@ public class Guard : MonoBehaviour
 
     public void TryDistraction(Transform targetPoint)
     {
+        Debug.Log("Distracted");
         float dis = Vector3.Distance(targetPoint.position, transform.position);
         if (dis <= distractionDistance)
         {
