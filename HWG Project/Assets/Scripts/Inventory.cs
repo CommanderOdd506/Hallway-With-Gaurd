@@ -3,12 +3,6 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEngine.InputSystem;
 
-[CreateAssetMenu]
-public class Item : ScriptableObject
-{
-    public string itemName;
-    public RawImage itemImage;
-}
 
 public class Inventory : MonoBehaviour
 {
@@ -18,6 +12,9 @@ public class Inventory : MonoBehaviour
 
     public TextMeshProUGUI slotText1;
     public TextMeshProUGUI slotText2;
+
+    public RawImage slotImage1;
+    public RawImage slotImage2;
 
     public GameObject outline1;
     public GameObject outline2;
@@ -117,19 +114,27 @@ public class Inventory : MonoBehaviour
         if (inventorySlot1 != null)
         {
             slotText1.text = inventorySlot1.itemName;
+            slotImage1.color = new Color(1f, 1f, 1f, 1f);
+            slotImage1.texture = inventorySlot1.itemImage;  
         }
         else
         {
             slotText1.text = "";
+            slotImage1.color = new Color(1f, 1f, 1f, 0f);
+            slotImage1.texture = null;
         }
 
         if (inventorySlot2 != null)
         {
-            slotText2.text = inventorySlot2.itemName;
+            slotText2.text = inventorySlot1.itemName;
+            slotImage2.color = new Color(1f, 1f, 1f, 1f);
+            slotImage2.texture = inventorySlot2.itemImage;
         }
         else
         {
             slotText2.text = "";
+            slotImage2.color = new Color(1f, 1f, 1f, 0f);
+            slotImage2.texture = null;
         }
         outline1.SetActive(false);
         outline2.SetActive(false);
