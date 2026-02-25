@@ -14,12 +14,16 @@ public class Inventory : MonoBehaviour
     public TextMeshProUGUI slotText2;
 
     public GameObject[] viewModelReferences;
+    public GameObject[] droppedItemPrefabs;
+    public Transform dropItemSpot;
 
     public RawImage slotImage1;
     public RawImage slotImage2;
 
     public GameObject outline1;
     public GameObject outline2;
+
+   
 
     private int activeSlot = 1;
     private Vector2 scroll = new Vector2();
@@ -63,15 +67,19 @@ public class Inventory : MonoBehaviour
     {
         if (slot == 1 && inventorySlot1 != null)
         {
+            SpawnItem(inventorySlot1);
             inventorySlot1 = null;
             UpdateUI();
             UpdateViewModel();
+            
         }
         else if (slot == 2 && inventorySlot2 != null)
         {
+            SpawnItem(inventorySlot2);
             inventorySlot2 = null;
             UpdateUI();
             UpdateViewModel();
+            
         }
         else
         {
@@ -83,21 +91,33 @@ public class Inventory : MonoBehaviour
     {
         if (inventorySlot1 == item) 
         {
+            SpawnItem(inventorySlot1);
             inventorySlot1 = null;
             UpdateUI();
             UpdateViewModel();
+            
         }
         else if (inventorySlot2 == item)
         {
+            SpawnItem(inventorySlot2);
             inventorySlot2 = null;
             UpdateUI();
             UpdateViewModel();
+            
         }
         else
         {
             Debug.Log("Item not in inventory");
         }
 
+    }
+
+    private void SpawnItem(Item item)
+    {
+        if (item == null || dropItemSpot == null) return;
+
+        Quaternion slightRotation = Quaternion.Euler(0f, 15f, 0f);
+        Instantiate(droppedItemPrefabs[item.referenceIndex], dropItemSpot.position, slightRotation);
     }
 
     void OnCycleSlot(InputValue value)

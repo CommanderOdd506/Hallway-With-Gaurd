@@ -11,6 +11,8 @@ public class PlayerInteraction : MonoBehaviour
     private bool _interactPressed;
     private Camera playerCamera;
 
+    private bool _buttonLock;
+
 
     void Awake()
     {
@@ -46,6 +48,7 @@ public class PlayerInteraction : MonoBehaviour
                     interactable.BaseInteract();
                     Debug.Log("Interacted with: " + interactable.name);
                 }
+
             }
             else
             {
@@ -55,7 +58,7 @@ public class PlayerInteraction : MonoBehaviour
         }
         else
         {
-
+            _interactPressed = false;
             if (interactPrompt != null && interactPrompt.activeSelf)
                 interactPrompt.SetActive(false);
         }

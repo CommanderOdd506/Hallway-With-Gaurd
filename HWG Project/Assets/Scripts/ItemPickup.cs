@@ -11,6 +11,7 @@ public class ItemPickup : MonoBehaviour
         if (inventory != null)
         {
             inventory.GiveItem(thisItem);
+            Destroy(this.gameObject);
         }
     }
 }
