@@ -1296,26 +1296,6 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1557846952533931073, guid: e11dc28d994cc9841a28e18797bb08d2, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0.07
-      objectReference: {fileID: 0}
-    - target: {fileID: 2373295566501490440, guid: e11dc28d994cc9841a28e18797bb08d2, type: 3}
-      propertyPath: m_Camera
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 2899580184571865371, guid: e11dc28d994cc9841a28e18797bb08d2, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1.8839
-      objectReference: {fileID: 0}
-    - target: {fileID: 2899580184571865371, guid: e11dc28d994cc9841a28e18797bb08d2, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1.8839
-      objectReference: {fileID: 0}
-    - target: {fileID: 2899580184571865371, guid: e11dc28d994cc9841a28e18797bb08d2, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1.8839
-      objectReference: {fileID: 0}
     - target: {fileID: 2899580184571865371, guid: e11dc28d994cc9841a28e18797bb08d2, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1.3
@@ -1359,22 +1339,6 @@ PrefabInstance:
     - target: {fileID: 3106560855502723765, guid: e11dc28d994cc9841a28e18797bb08d2, type: 3}
       propertyPath: m_Name
       value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 4291777425700861948, guid: e11dc28d994cc9841a28e18797bb08d2, type: 3}
-      propertyPath: pitchMax
-      value: 80
-      objectReference: {fileID: 0}
-    - target: {fileID: 4291777425700861948, guid: e11dc28d994cc9841a28e18797bb08d2, type: 3}
-      propertyPath: pitchMin
-      value: -80
-      objectReference: {fileID: 0}
-    - target: {fileID: 5420903990038405432, guid: e11dc28d994cc9841a28e18797bb08d2, type: 3}
-      propertyPath: 'm_Materials.Array.data[0]'
-      value: 
-      objectReference: {fileID: 2100000, guid: c2e40fa84d53ccd428f640eac126b1fb, type: 2}
-    - target: {fileID: 6183750952110412478, guid: e11dc28d994cc9841a28e18797bb08d2, type: 3}
-      propertyPath: moveSpeed
-      value: 15
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
