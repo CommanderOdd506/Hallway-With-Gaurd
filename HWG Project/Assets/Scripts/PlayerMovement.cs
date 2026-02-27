@@ -8,6 +8,7 @@ public class PlayerMovement : MonoBehaviour
     private CharacterController controller;
     private PlayerInput playerInput;
     private InputAction sprintAction;
+    public Animator armsAnimator;
 
     public float walkSpeed;
     public float sprintSpeed;
@@ -30,7 +31,8 @@ public class PlayerMovement : MonoBehaviour
     private float _currentSpeed;
 
     private bool _isSprinting;
-    private bool _sprintLocked; 
+    private bool _sprintLocked;
+    private bool _isWalking;
 
     void Awake()
     {
@@ -107,6 +109,15 @@ public class PlayerMovement : MonoBehaviour
 
         Vector3 motion = horizontal + new Vector3(0f, _velocity.y, 0f);
         controller.Move(motion * Time.deltaTime);
+
+        _isWalking = _moveInput.magnitude > 0.1f;
+        HandleAnimation();
+    }
+
+    void HandleAnimation()
+    {
+        armsAnimator.SetBool("isWalking", _isWalking);
+        armsAnimator.SetBool("isSprinting", _isSprinting);
     }
 
     void OnJump(InputValue value)
@@ -118,5 +129,6 @@ public class PlayerMovement : MonoBehaviour
     void OnMove(InputValue value)
     {
         _moveInput = value.Get<Vector2>();
+        _isWalking = true;
     }
 }
