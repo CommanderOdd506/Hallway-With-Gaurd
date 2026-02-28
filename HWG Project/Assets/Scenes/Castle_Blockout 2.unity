@@ -1288,6 +1288,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 288971410288263859, guid: e11dc28d994cc9841a28e18797bb08d2, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 288971410288263859, guid: e11dc28d994cc9841a28e18797bb08d2, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1557846952533931073, guid: e11dc28d994cc9841a28e18797bb08d2, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.07
@@ -1705,6 +1713,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1a374a31cedb5f4e8d5d4f78194e123, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Guard
+  PatrolPoints: []
+  neckPivot: {fileID: 0}
+  startingState: 0
+  viewDistance: 10
+  searchBuffer: 60
+  innerDetectionRadius: 3
+  distractionDistance: 20
+  distractionTimer: 15
+  normalSpeed: 2
+  aggroSpeed: 3.2
+  rotateSpeed: 4
+  headRotateSpeed: 6
+  goblinHeads: []
+  goblinHeadDistance: 35
+  aggroMemoryDuration: 4
+  viewAngle: 90
 --- !u!23 &189049965
 MeshRenderer:
   m_ObjectHideFlags: 0
