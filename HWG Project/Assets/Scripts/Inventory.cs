@@ -55,12 +55,14 @@ public class Inventory : MonoBehaviour
             inventorySlot1 = item;
             UpdateUI();
             UpdateViewModel();
+            SetArmVisibility();
         }
         else if (inventorySlot2 == null)
         {
             inventorySlot2 = item;
             UpdateUI();
             UpdateViewModel();
+            SetArmVisibility();
         }
         else
         {
@@ -76,7 +78,7 @@ public class Inventory : MonoBehaviour
             inventorySlot1 = null;
             UpdateUI();
             UpdateViewModel();
-            
+            SetArmVisibility();
         }
         else if (slot == 2 && inventorySlot2 != null)
         {
@@ -84,7 +86,7 @@ public class Inventory : MonoBehaviour
             inventorySlot2 = null;
             UpdateUI();
             UpdateViewModel();
-            
+            SetArmVisibility();
         }
         else
         {
@@ -100,7 +102,7 @@ public class Inventory : MonoBehaviour
             inventorySlot1 = null;
             UpdateUI();
             UpdateViewModel();
-            
+            SetArmVisibility();
         }
         else if (inventorySlot2 == item)
         {
@@ -108,7 +110,30 @@ public class Inventory : MonoBehaviour
             inventorySlot2 = null;
             UpdateUI();
             UpdateViewModel();
-            
+            SetArmVisibility();
+        }
+        else
+        {
+            Debug.Log("Item not in inventory");
+        }
+
+    }
+
+    public void RemoveItem(Item item)
+    {
+        if (inventorySlot1 == item)
+        {
+            inventorySlot1 = null;
+            UpdateUI();
+            UpdateViewModel();
+            SetArmVisibility();
+        }
+        else if (inventorySlot2 == item)
+        {
+            inventorySlot2 = null;
+            UpdateUI();
+            UpdateViewModel();
+            SetArmVisibility();
         }
         else
         {
@@ -218,7 +243,7 @@ public class Inventory : MonoBehaviour
 
         if (inventorySlot2 != null)
         {
-            slotText2.text = inventorySlot1.itemName;
+            slotText2.text = inventorySlot2.itemName;
             slotImage2.color = new Color(1f, 1f, 1f, 1f);
             slotImage2.texture = inventorySlot2.itemImage;
         }
