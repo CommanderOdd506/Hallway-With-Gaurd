@@ -6,9 +6,14 @@ using UnityEngine.InputSystem;
 
 public class Inventory : MonoBehaviour
 {
+    [SerializeField] private float scrollThreshold = 0.5f;
+    [SerializeField] private float scrollCooldown = 0.2f;
+
+    private float lastScrollTime;
 
     public Item inventorySlot1;
     public Item inventorySlot2;
+    public GameObject arms;
 
     public TextMeshProUGUI slotText1;
     public TextMeshProUGUI slotText2;
@@ -112,6 +117,23 @@ public class Inventory : MonoBehaviour
 
     }
 
+    public bool HasItem(Item item)
+    {
+        if (inventorySlot1 == item && activeSlot == 1)
+        {
+            return true;
+        }
+        else if (inventorySlot2 == item && activeSlot == 2)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+
+    }
+
     private void SpawnItem(Item item)
     {
         if (item == null || dropItemSpot == null) return;
@@ -126,18 +148,21 @@ public class Inventory : MonoBehaviour
 
         float direction = value.Get<float>();
 
-        if (direction > 0f)
-        {
-            activeSlot = activeSlot == 1 ? 2 : 1;
-            UpdateUI();
-            UpdateViewModel();
-        }
-        else if (direction < 0f)
-        {
-            activeSlot = activeSlot == 1 ? 2 : 1;
-            UpdateUI();
-            UpdateViewModel();
-        }
+        // Ignore tiny scroll values (high-res mouse wheels)
+        if (Mathf.Abs(direction) < scrollThreshold)
+            return;
+
+        // Prevent rapid swapping
+        if (Time.time - lastScrollTime < scrollCooldown)
+            return;
+
+        lastScrollTime = Time.time;
+
+        activeSlot = activeSlot == 1 ? 2 : 1;
+
+        UpdateUI();
+        UpdateViewModel();
+        SetArmVisibility();
     }
 
     void UpdateViewModel()
@@ -157,6 +182,22 @@ public class Inventory : MonoBehaviour
             return;
 
         viewModelReferences[currentItem.referenceIndex].SetActive(true);
+    }
+
+    void SetArmVisibility()
+    {
+        if (activeSlot == 1 && inventorySlot1 != null)
+        {
+            arms.SetActive(true);
+        }
+        else if(activeSlot == 2 && inventorySlot2 != null)
+        {
+            arms.SetActive(true);
+        }
+        else
+        {
+            arms.SetActive(false);
+        }
     }
 
 
