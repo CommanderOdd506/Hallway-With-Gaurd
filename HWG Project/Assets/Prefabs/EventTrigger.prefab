@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5962539802134858947}
   - component: {fileID: 1377470133837457345}
   - component: {fileID: 5445340625373554583}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: EventTrigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -28,6 +28,10 @@ public class Guard : MonoBehaviour
     public float rotateSpeed = 4f;
     public float headRotateSpeed = 6f;
 
+    public LayerMask sightBlockLayers;
+    public Transform eyePoint;
+
+
     public GameObject[] goblinHeads;
     public float goblinHeadDistance = 35f;
 
@@ -84,10 +88,21 @@ public class Guard : MonoBehaviour
 
         if (inVision)
         {
-            _seesPlayer = true;
-            _aggroMemoryTimer = aggroMemoryDuration;
-            _timeSinceLastSeen = 0f;
-            lastSeenSpot = player.position;
+            Vector3 dirToPlayer = (player.position - eyePoint.position).normalized;
+            float distance = Vector3.Distance(eyePoint.position, player.position);
+
+            RaycastHit hit;
+
+            if (Physics.Raycast(eyePoint.position, dirToPlayer, out hit, distance))
+            {
+                if (hit.transform == player)
+                {
+                    _seesPlayer = true;
+                    _aggroMemoryTimer = aggroMemoryDuration;
+                    _timeSinceLastSeen = 0f;
+                    lastSeenSpot = player.position;
+                }
+            }
         }
         else
         {

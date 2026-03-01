@@ -2442,6 +2442,7 @@ MonoBehaviour:
   scrollCooldown: 0.2
   inventorySlot1: {fileID: 11400000, guid: da6299a6a6304ce4c9caa2286e6fbba1, type: 2}
   inventorySlot2: {fileID: 0}
+  arms: {fileID: 0}
   slotText1: {fileID: 6329237496136249369}
   slotText2: {fileID: 1898720599978356756}
   viewModelReferences:
