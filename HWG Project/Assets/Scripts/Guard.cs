@@ -110,6 +110,7 @@ public class Guard : MonoBehaviour
             {
                 _aggroMemoryTimer -= Time.deltaTime;
                 _seesPlayer = true;
+                _isDistracted = false;
 
                 // Keep updating last position while in memory chase
                 lastSeenSpot = player.position;
@@ -127,7 +128,7 @@ public class Guard : MonoBehaviour
     {
         Debug.Log("Distracted");
         float dis = Vector3.Distance(targetPoint.position, transform.position);
-        if (dis <= distractionDistance)
+        if (dis <= distractionDistance && currentState != EnemyState.Aggro)
         {
             distractionPoint = targetPoint.position;
             _isDistracted = true;
