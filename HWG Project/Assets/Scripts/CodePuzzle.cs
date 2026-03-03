@@ -9,6 +9,7 @@ public class CodePuzzle : MonoBehaviour
     public Animator caseAnim;
     private bool _solved;
     public string winScene = "Win Scene";
+    public GameObject goldenDuck;
 
     public void PressButton(int buttonNum)
     {
@@ -34,11 +35,13 @@ public class CodePuzzle : MonoBehaviour
     public void WinGame()
     {
         SceneManager.LoadScene(winScene);
+        
     }
 
     private void CodeEntered()
     {
         Debug.Log("Correct code Entered!");
+        goldenDuck.layer = 6;
         _solved = true;
         if (caseAnim != null)
         {
