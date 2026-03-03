@@ -39213,6 +39213,7 @@ MonoBehaviour:
   correctCode: 0200000005000000040000000100000003000000
   caseAnim: {fileID: 871746678}
   winScene: Win Scene
+  goldenDuck: {fileID: 1000453641780224611}
 --- !u!4 &393487720
 Transform:
   m_ObjectHideFlags: 0
@@ -234977,7 +234978,7 @@ GameObject:
   - component: {fileID: 212770021086133959}
   - component: {fileID: 3551487378824077002}
   - component: {fileID: 3551487378824077003}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Golden Duck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
