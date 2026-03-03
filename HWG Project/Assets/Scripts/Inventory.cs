@@ -207,6 +207,8 @@ public class Inventory : MonoBehaviour
 
     void OnAttack(InputValue value)
     {
+        if (PauseMenu.instance.IsPaused()) return;
+
         if (currentlyEquippedItem.canAttack)
         {
             armsAnimator.SetTrigger("Hit");

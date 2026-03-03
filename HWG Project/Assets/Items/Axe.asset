@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Axe
   m_EditorClassIdentifier: Assembly-CSharp::Item
   itemName: Axe
-  itemImage: {fileID: 2800000, guid: 2933d99c3cab1094c8b3b40b540894b8, type: 3}
+  itemImage: {fileID: 2800000, guid: abe9724284aa71b4295484594bc6240c, type: 3}
   referenceIndex: 1
   canAttack: 1
+  canEat: 0

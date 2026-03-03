@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Broken Axe
   m_EditorClassIdentifier: Assembly-CSharp::Item
   itemName: Broken Axe
-  itemImage: {fileID: 2800000, guid: 2933d99c3cab1094c8b3b40b540894b8, type: 3}
+  itemImage: {fileID: 2800000, guid: 0997cbc7a1842c34d87e400a2d90e499, type: 3}
   referenceIndex: 2
   canAttack: 1
+  canEat: 0
