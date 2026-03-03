@@ -60,8 +60,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         bool canSprint = !_sprintLocked && _currentStamina > 0f;
-        _isSprinting = sprintHeld && canSprint;
-
+        _isSprinting = (sprintHeld && canSprint) && (_moveInput.y > 0);
         if (_isSprinting)
         {
             _currentStamina -= staminaDrainPerSecond * Time.deltaTime;
