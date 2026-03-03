@@ -6,12 +6,14 @@ public enum EnemyState
     Patrol,
     Aggro,
     Search,
-    Distracted
+    Distracted,
+    Stunned
 }
 
 public class Guard : MonoBehaviour
 {
     public Transform[] PatrolPoints;
+    public Transform[] newPatrolPoints;
     private NavMeshAgent navMeshAgent;
     private Transform player;
     private Animator animator;
@@ -25,6 +27,8 @@ public class Guard : MonoBehaviour
     public float distractionTimer = 15f;
     public float normalSpeed = 2f;
     public float aggroSpeed = 3.2f;
+    public float finalAggroSpeed = 4.2f;
+    public float finalWalkSpeed = 3f;
     public float rotateSpeed = 4f;
     public float headRotateSpeed = 6f;
 
@@ -34,6 +38,11 @@ public class Guard : MonoBehaviour
 
     public GameObject[] goblinHeads;
     public float goblinHeadDistance = 35f;
+
+    public float stunDuration = 3f;
+
+    private float _stunTimer;
+    private bool _isStunned;
 
     private bool _seesPlayer;
     private bool _isDistracted;
@@ -46,6 +55,8 @@ public class Guard : MonoBehaviour
     private float _aggroMemoryTimer;
     public float aggroMemoryDuration = 4f;
     private Quaternion defaultRotation;
+    private bool _inLastRoom;
+    
 
     [Range(0, 180)]
     public float viewAngle = 90f;
@@ -155,6 +166,9 @@ public class Guard : MonoBehaviour
             case EnemyState.Patrol:
                 headIndex = 0;
                 break;
+            case EnemyState.Stunned:
+                headIndex = 3;
+                break;
         }
 
         for (int i = 0; i < goblinHeads.Length; i++)
@@ -164,8 +178,25 @@ public class Guard : MonoBehaviour
             goblinHeads[headIndex].SetActive(true);
     }
 
+    public void Stun()
+    {
+        _isStunned = true;
+        _stunTimer = stunDuration;
+
+        navMeshAgent.isStopped = true;
+        navMeshAgent.velocity = Vector3.zero;
+
+        currentState = EnemyState.Stunned;
+    }
+
     public void CheckState()
     {
+        if (_isStunned)
+        {
+            currentState = EnemyState.Stunned;
+            return;
+        }
+
         if (_seesPlayer)
         {
             currentState = EnemyState.Aggro;
@@ -221,6 +252,9 @@ public class Guard : MonoBehaviour
             case EnemyState.Distracted:
                 DistractedState();
                 break;
+            case EnemyState.Stunned:
+                StunnedState();
+                break;
             default:
                 PatrolState();
                 break;
@@ -257,6 +291,25 @@ public class Guard : MonoBehaviour
         neckPivot.localRotation = Quaternion.Slerp(neckPivot.localRotation,clampedRotation,headRotateSpeed * Time.deltaTime);
     }
 
+    private void StunnedState()
+    {
+        _stunTimer -= Time.deltaTime;
+        neckPivot.localRotation = defaultRotation;
+
+        if (_stunTimer <= 0f)
+        {
+            _isStunned = false;
+
+            navMeshAgent.isStopped = false;
+
+            navMeshAgent.updateRotation = true;
+            lastSeenSpot = player.position;
+            _aggroMemoryTimer = aggroMemoryDuration;
+            _timeSinceLastSeen = 0f;
+            _seesPlayer = true;
+        }
+    }
+
     private void DistractedState()
     {
         navMeshAgent.SetDestination(distractionPoint);
@@ -273,6 +326,7 @@ public class Guard : MonoBehaviour
     private void SearchState()
     {
         navMeshAgent.SetDestination(lastSeenSpot);
+        
     }
 
     private void AggroState()
@@ -305,18 +359,42 @@ public class Guard : MonoBehaviour
     {
         float speedPercent = navMeshAgent.velocity.magnitude / aggroSpeed;
         animator.SetFloat("Speed", speedPercent);
-
+        animator.SetBool("IsStunned", currentState == EnemyState.Stunned);
         animator.SetBool("IsAggro", currentState == EnemyState.Aggro);
         animator.SetBool("IsSearching", currentState == EnemyState.Search);
         animator.SetBool("IsDistracted", currentState == EnemyState.Distracted);
+    }
+
+    public void SwitchRoom()
+    {
+        _inLastRoom = true;
+        aggroSpeed = finalAggroSpeed;
+        normalSpeed = finalWalkSpeed;
+        if (currentState == EnemyState.Aggro)
+        {
+            navMeshAgent.speed = aggroSpeed;
+        }
+        else
+        {
+            navMeshAgent.speed = normalSpeed;
+        }
     }
 
     private void PatrolState()
     {
         if (!navMeshAgent.pathPending && navMeshAgent.remainingDistance <= navMeshAgent.stoppingDistance)
         {
-            _currentPatrolIndex = (_currentPatrolIndex + 1) % PatrolPoints.Length;
-            navMeshAgent.SetDestination(PatrolPoints[_currentPatrolIndex].position);
+            if (_inLastRoom)
+            {
+                _currentPatrolIndex = (_currentPatrolIndex + 1) % newPatrolPoints.Length;
+                navMeshAgent.SetDestination(newPatrolPoints[_currentPatrolIndex].position);
+            }
+            else
+            {
+                _currentPatrolIndex = (_currentPatrolIndex + 1) % PatrolPoints.Length;
+                navMeshAgent.SetDestination(PatrolPoints[_currentPatrolIndex].position);
+            }
+            
         }
     }
 

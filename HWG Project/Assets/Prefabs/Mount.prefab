@@ -137,7 +137,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 127.846, y: 9.2, z: 45.852}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.0267302, y: 1.02673, z: 1.0267302}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7076346897239817475}
@@ -264,8 +264,16 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1907394213978617003}
     m_Modifications:
+    - target: {fileID: 1358959060965585734, guid: 775266148eb5b904899f9e22beda476f, type: 3}
+      propertyPath: m_AdditionalLightsShadowResolutionTier
+      value: -1
+      objectReference: {fileID: 0}
     - target: {fileID: 5360154470071476414, guid: 775266148eb5b904899f9e22beda476f, type: 3}
       propertyPath: m_RenderingLayerMask
+      value: 128
+      objectReference: {fileID: 0}
+    - target: {fileID: 5388919471661326737, guid: 775266148eb5b904899f9e22beda476f, type: 3}
+      propertyPath: m_Shadows.m_Resolution
       value: 128
       objectReference: {fileID: 0}
     - target: {fileID: 5864782272669581675, guid: 775266148eb5b904899f9e22beda476f, type: 3}

@@ -9,7 +9,7 @@ public class ItemPickup : MonoBehaviour
     {
         Inventory inventory = FindObjectOfType<Inventory>();
 
-        if (inventory != null)
+        if (inventory != null && inventory.HasSpace())
         {
             inventory.GiveItem(thisItem);
 

@@ -14,6 +14,7 @@ public class Inventory : MonoBehaviour
     public Item inventorySlot1;
     public Item inventorySlot2;
     public GameObject arms;
+    public Animator armsAnimator;
 
     public TextMeshProUGUI slotText1;
     public TextMeshProUGUI slotText2;
@@ -28,7 +29,9 @@ public class Inventory : MonoBehaviour
     public GameObject outline1;
     public GameObject outline2;
 
-   
+    private Item currentlyEquippedItem;
+
+
 
     private int activeSlot = 1;
     private Vector2 scroll = new Vector2();
@@ -159,6 +162,18 @@ public class Inventory : MonoBehaviour
 
     }
 
+    public bool HasSpace()
+    {
+        if (inventorySlot1 != null && inventorySlot2 != null)
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
+
     private void SpawnItem(Item item)
     {
         if (item == null || dropItemSpot == null) return;
@@ -190,15 +205,30 @@ public class Inventory : MonoBehaviour
         SetArmVisibility();
     }
 
+    void OnAttack(InputValue value)
+    {
+        if (currentlyEquippedItem.canAttack)
+        {
+            armsAnimator.SetTrigger("Hit");
+        }
+        
+    }
+
     void UpdateViewModel()
     {
         Item currentItem = activeSlot == 1 ? inventorySlot1 : inventorySlot2;
 
+        // If nothing changed, do nothing
+        if (currentItem == currentlyEquippedItem)
+            return;
+
+        currentlyEquippedItem = currentItem;
+
+        // Turn everything off
         for (int i = 0; i < viewModelReferences.Length; i++)
         {
             viewModelReferences[i].SetActive(false);
         }
-
 
         if (currentItem == null)
             return;
@@ -207,6 +237,8 @@ public class Inventory : MonoBehaviour
             return;
 
         viewModelReferences[currentItem.referenceIndex].SetActive(true);
+
+        armsAnimator.SetTrigger("Draw");
     }
 
     void SetArmVisibility()
