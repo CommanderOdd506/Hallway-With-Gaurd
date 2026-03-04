@@ -34,8 +34,8 @@ ModelImporter:
       name: Armature|1-Idle
       takeName: Armature|1-Idle
       internalID: -6139384491929262676
-      firstFrame: 3
-      lastFrame: 147
+      firstFrame: 4
+      lastFrame: 144
       wrapMode: 0
       orientationOffsetY: 0
       level: 0

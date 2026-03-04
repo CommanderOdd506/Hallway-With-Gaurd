@@ -328,6 +328,10 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 23.328901
       objectReference: {fileID: 0}
+    - target: {fileID: 3803087449686770836, guid: 85693f31e0b535f459bf7548e3be92bd, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 7aa1b929a9503c748bfe0c6aa4e8d80d, type: 2}
     - target: {fileID: 3854792583211842985, guid: 85693f31e0b535f459bf7548e3be92bd, type: 3}
       propertyPath: m_LocalScale.x
       value: 3.9807577
@@ -1914,7 +1918,7 @@ AudioSource:
   m_GameObject: {fileID: 2142109779}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 24300002, guid: 1adc3a22492ea214a891b77ca5a25f58, type: 2}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: f5b3b9d1601c281498ff2f89a7d4e381, type: 3}
   m_PlayOnAwake: 1
