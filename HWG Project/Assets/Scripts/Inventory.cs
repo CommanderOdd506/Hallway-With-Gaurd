@@ -30,8 +30,8 @@ public class Inventory : MonoBehaviour
     public GameObject outline2;
 
     private Item currentlyEquippedItem;
-
-
+    private bool _isAnimating;
+    private PlayerMovement playerMovement;
 
     private int activeSlot = 1;
     private Vector2 scroll = new Vector2();
@@ -40,6 +40,7 @@ public class Inventory : MonoBehaviour
     {
         UpdateUI();
         UpdateViewModel();
+        playerMovement = GetComponent<PlayerMovement>();
     }
 
     void OnDrop(InputValue value)
@@ -185,6 +186,7 @@ public class Inventory : MonoBehaviour
     void OnCycleSlot(InputValue value)
     {
         if (PauseMenu.instance.IsPaused()) return;
+        if (_isAnimating) return;
 
         float direction = value.Get<float>();
 
@@ -208,12 +210,23 @@ public class Inventory : MonoBehaviour
     void OnAttack(InputValue value)
     {
         if (PauseMenu.instance.IsPaused()) return;
+        if(_isAnimating) return;
 
         if (currentlyEquippedItem.canAttack)
         {
             armsAnimator.SetTrigger("Hit");
         }
-        
+
+        if (currentlyEquippedItem.canEat)
+        {
+            armsAnimator.SetTrigger("Eat");
+        }
+
+    }
+
+    public void SetAnimating(bool animating)
+    {
+        _isAnimating = animating;
     }
 
     void UpdateViewModel()

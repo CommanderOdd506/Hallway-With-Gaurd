@@ -113,6 +113,11 @@ public class PlayerMovement : MonoBehaviour
         HandleAnimation();
     }
 
+    public void EatApple()
+    {
+        _currentStamina = maxStamina;
+    }
+
     void HandleAnimation()
     {
         armsAnimator.SetBool("isWalking", _isWalking);
