@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.InputSystem;
+using UnityEngine.Audio;
 
 
 public class Inventory : MonoBehaviour
@@ -35,6 +36,10 @@ public class Inventory : MonoBehaviour
 
     private int activeSlot = 1;
     private Vector2 scroll = new Vector2();
+
+    public AudioSource audioSource;
+    public AudioClip swingClip;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -215,6 +220,7 @@ public class Inventory : MonoBehaviour
         if (currentlyEquippedItem.canAttack)
         {
             armsAnimator.SetTrigger("Hit");
+            audioSource.PlayOneShot(swingClip);
         }
 
         if (currentlyEquippedItem.canEat)
