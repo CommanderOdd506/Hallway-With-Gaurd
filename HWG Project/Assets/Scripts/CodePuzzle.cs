@@ -10,15 +10,33 @@ public class CodePuzzle : MonoBehaviour
     private bool _solved;
     public string winScene = "Win Scene";
     public GameObject goldenDuck;
+    public AudioClip correct;
+    public AudioClip incorrect;
+    public AudioClip solved;
+
+    [Range(0f, 1f)] public float audioVolume = 1.0f;
+
+    private AudioSource AudioSource;
+
+    void Start()
+    {
+        AudioSource = GetComponent<AudioSource>();
+    }
 
     public void PressButton(int buttonNum)
     {
         if (_solved) return;
 
         Debug.Log("Button " + buttonNum + " pressed!");
-        if(buttonNum == correctCode[_currentRequiredIndex])
+        if (buttonNum == correctCode[_currentRequiredIndex])
         {
             Debug.Log("Button " + buttonNum + " is correct!");
+
+            if (AudioSource && correct)
+                AudioSource.PlayOneShot(correct, audioVolume);
+
+
+
             _currentRequiredIndex++;
             if (_currentRequiredIndex >= correctCode.Length)
             {
@@ -28,6 +46,13 @@ public class CodePuzzle : MonoBehaviour
         else
         {
             Debug.Log("Button " + buttonNum + " is wrong!");
+
+            if (AudioSource && incorrect)
+            {
+                AudioSource.PlayOneShot(incorrect, audioVolume);
+
+            }
+
             _currentRequiredIndex = 0;
         }
     }
@@ -35,7 +60,7 @@ public class CodePuzzle : MonoBehaviour
     public void WinGame()
     {
         SceneManager.LoadScene(winScene);
-        
+
     }
 
     private void CodeEntered()
@@ -43,21 +68,16 @@ public class CodePuzzle : MonoBehaviour
         Debug.Log("Correct code Entered!");
         goldenDuck.layer = 6;
         _solved = true;
+        if (AudioSource && solved)
+            AudioSource.PlayOneShot(solved, audioVolume);
+
+
         if (caseAnim != null)
         {
-            
+
             caseAnim.SetTrigger("Raise");
         }
     }
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+
 }

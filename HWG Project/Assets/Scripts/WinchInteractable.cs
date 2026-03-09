@@ -6,9 +6,14 @@ public class WinchInteractable : Interactable
     public WinchDoor door;
     public float rotationSpeed;
 
+    [Header("Audio")]
+    public AudioClip winch;
+    [Range(0f, 1f)] public float audioVolume = 1f;
+
+    private AudioSource audioSource;
+
     [Header("Input")]
-    public InputActionReference interactAction; // Drag your Interact action here
-    
+    public InputActionReference interactAction;
 
     private bool _isActive;
     private Camera _playerCamera;
@@ -16,6 +21,12 @@ public class WinchInteractable : Interactable
     private void Start()
     {
         _playerCamera = Camera.main;
+        audioSource = GetComponent<AudioSource>();
+    }
+    public void StopWinchAudio()
+    {
+        if (audioSource && audioSource.isPlaying)
+            audioSource.Stop();
     }
 
     public override void BaseInteract()
@@ -25,9 +36,13 @@ public class WinchInteractable : Interactable
 
     void Update()
     {
-        if (!_isActive) return;
+        if (!_isActive)
+        {
+            StopWinch();
+            return;
+        }
 
-        // Check if still looking at this winch
+        // Check if player still looking at winch
         RaycastHit hit;
         bool stillLooking = Physics.Raycast(
             _playerCamera.transform.position,
@@ -42,11 +57,19 @@ public class WinchInteractable : Interactable
             return;
         }
 
-        // This now supports keyboard + controller
         if (interactAction.action.IsPressed())
         {
             door.WinchUp();
             transform.Rotate(0f, rotationSpeed * Time.deltaTime, 0f);
+
+            // Start audio if not playing
+            if (audioSource && winch && !audioSource.isPlaying)
+            {
+                audioSource.clip = winch;
+                audioSource.volume = audioVolume;
+                audioSource.loop = true;
+                audioSource.Play();
+            }
         }
         else
         {
@@ -56,7 +79,15 @@ public class WinchInteractable : Interactable
 
     void StopWinch()
     {
-        _isActive = false;
+        // stop movement
         door.StopWinch();
+
+        // stop audio
+        if (audioSource && audioSource.isPlaying)
+        {
+            audioSource.Stop();
+        }
+
+        _isActive = false;
     }
 }
