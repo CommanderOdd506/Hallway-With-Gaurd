@@ -128,6 +128,8 @@ public class Guard : MonoBehaviour
     public float goblinHeadDistance = 35f;
 
     private int _currentHeadIndex;
+    private int _lastHeadIndex = -1;
+    private bool _lastHeadVisible = false;
 
 
     // -----------------------------
@@ -298,35 +300,24 @@ public class Guard : MonoBehaviour
 
     void PlayVoiceLine(string type)
     {
-        if (voiceSource.isPlaying) return;
-
         AudioClip[] clips = null;
 
         switch (type)
         {
-            case "SpottedPlayer":
-                clips = spottedClips;
-                break;
-
-            case "Searching":
-                clips = searchClips;
-                break;
-
-            case "WhatWasThat":
-                clips = distractedClips;
-                break;
-
-            case "Stunned":
-                clips = stunnedClips;
-                break;
+            case "SpottedPlayer": clips = spottedClips; break;
+            case "Searching": clips = searchClips; break;
+            case "WhatWasThat": clips = distractedClips; break;
+            case "Stunned": clips = stunnedClips; break;
         }
 
         if (clips == null || clips.Length == 0) return;
 
-        int index = Random.Range(0, clips.Length - 1);
+        int index = Random.Range(0, clips.Length); // fixed: full range now reachable
 
+        voiceSource.Stop();                        // fixed: interrupt previous line
         voiceSource.PlayOneShot(clips[index]);
     }
+
 
 
 
@@ -579,36 +570,29 @@ public class Guard : MonoBehaviour
     private void UpdateGoblinHeads()
     {
         float dis = Vector3.Distance(player.position, transform.position);
+        bool shouldShow = dis <= goblinHeadDistance;
 
         int headIndex = 0;
-
         switch (currentState)
         {
-            case EnemyState.Aggro:
-                headIndex = 2;
-                break;
-
+            case EnemyState.Aggro: headIndex = 2; break;
             case EnemyState.Distracted:
-            case EnemyState.Search:
-                headIndex = 1;
-                break;
-
-            case EnemyState.Patrol:
-                headIndex = 0;
-                break;
-
-            case EnemyState.Stunned:
-                headIndex = 3;
-                break;
+            case EnemyState.Search: headIndex = 1; break;
+            case EnemyState.Patrol: headIndex = 0; break;
+            case EnemyState.Stunned: headIndex = 3; break;
         }
+
+        if (headIndex == _lastHeadIndex && shouldShow == _lastHeadVisible) return;
+
+        _lastHeadIndex = headIndex;
+        _lastHeadVisible = shouldShow;
 
         for (int i = 0; i < goblinHeads.Length; i++)
             goblinHeads[i].SetActive(false);
 
-        if (dis <= goblinHeadDistance)
+        if (shouldShow)
             goblinHeads[headIndex].SetActive(true);
     }
-
 
 
     // =========================================================
