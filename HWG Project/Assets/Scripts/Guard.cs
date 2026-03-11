@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Audio;
+using System.Collections;
 
 public enum EnemyState
 {
@@ -121,9 +122,17 @@ public class Guard : MonoBehaviour
     public AudioClip[] searchClips;
     public AudioClip[] distractedClips;
     public AudioClip[] stunnedClips;
+    public AudioClip[] idleClips;
+    public AudioClip[] getBackHereClips;
 
     public AudioSource stunSource;
     public AudioClip bonk;
+
+    private float _idleVoiceTimer;
+    public float idleVoiceTime = 13f;
+
+    private float _aggroVoiceTimer;
+    public float aggroVoiceTime = 7.5f;
 
 
     // -----------------------------
@@ -161,6 +170,8 @@ public class Guard : MonoBehaviour
         currentState = startingState;
 
         defaultRotation = neckPivot.localRotation;
+        _idleVoiceTimer = idleVoiceTime;
+        _aggroVoiceTimer = aggroVoiceTime;
     }
 
 
@@ -253,8 +264,13 @@ public class Guard : MonoBehaviour
     {
         switch (state)
         {
+            case EnemyState.Patrol:
+                _idleVoiceTimer = idleVoiceTime;
+                break;
+
             case EnemyState.Aggro:
                 PlayVoiceLine("SpottedPlayer");
+                _aggroVoiceTimer = aggroVoiceTime;
                 break;
 
             case EnemyState.Search:
@@ -314,6 +330,8 @@ public class Guard : MonoBehaviour
             case "Searching": clips = searchClips; break;
             case "WhatWasThat": clips = distractedClips; break;
             case "Stunned": clips = stunnedClips; break;
+            case "Idle": clips = idleClips; break;
+            case "GetBackHere": clips = getBackHereClips; break;
         }
 
         if (clips == null || clips.Length == 0) return;
@@ -344,9 +362,14 @@ public class Guard : MonoBehaviour
         }
     }
 
+    private bool _canStun = true;
 
     public void Stun()
     {
+        if (!_canStun) return;
+
+        _canStun = false;
+
         _isStunned = true;
         _stunTimer = stunDuration;
 
@@ -358,6 +381,15 @@ public class Guard : MonoBehaviour
         
         stunSource.PlayOneShot(bonk, 1.8f);
         
+    }
+
+    private IEnumerator StunCooldown()
+    {
+        
+
+        yield return new WaitForSeconds(3f);
+
+        _canStun = true;
     }
 
 
@@ -438,6 +470,18 @@ public class Guard : MonoBehaviour
                 _currentPatrolIndex = (_currentPatrolIndex + 1) % PatrolPoints.Length;
                 navMeshAgent.SetDestination(PatrolPoints[_currentPatrolIndex].position);
             }
+
+            
+        }
+
+        if (_idleVoiceTimer <= 0)
+        {
+            PlayVoiceLine("Idle");
+            _idleVoiceTimer = idleVoiceTime;
+        }
+        else
+        {
+            _idleVoiceTimer -= Time.deltaTime;
         }
     }
 
@@ -490,6 +534,16 @@ public class Guard : MonoBehaviour
         {
             navMeshAgent.updateRotation = true;
         }
+
+        if (_aggroVoiceTimer <= 0)
+        {
+            PlayVoiceLine("GetBackHere");
+            _aggroVoiceTimer = aggroVoiceTime;
+        }
+        else
+        {
+            _aggroVoiceTimer -= Time.deltaTime;
+        }
     }
 
 
@@ -510,6 +564,7 @@ public class Guard : MonoBehaviour
             _aggroMemoryTimer = aggroMemoryDuration;
             _timeSinceLastSeen = 0f;
             _seesPlayer = true;
+            StartCoroutine(StunCooldown());
         }
     }
 

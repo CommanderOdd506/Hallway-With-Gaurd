@@ -66,7 +66,11 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 64d71dcb9e23ebb4ab5f1df241ef5d36, type: 2}
     - target: {fileID: 919132149155446097, guid: a6c9054ff8290b4479eba132478af81e, type: 3}
       propertyPath: m_Name
-      value: Stairs 1
+      value: Stairs
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: a6c9054ff8290b4479eba132478af81e, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

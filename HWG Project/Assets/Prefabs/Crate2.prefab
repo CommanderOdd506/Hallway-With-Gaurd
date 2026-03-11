@@ -60,6 +60,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Crate2 (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 57bdb10fba2a7f74787806480b0b8f40, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -129,6 +133,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 60fd2b79ccef66043914dc8a9fdad486, type: 3}
       propertyPath: m_Name
       value: Crate2
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 60fd2b79ccef66043914dc8a9fdad486, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
