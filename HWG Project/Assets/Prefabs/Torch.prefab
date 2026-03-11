@@ -205,7 +205,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2861617758576387725, guid: 43fba05117969f34ea31d3c1b7854905, type: 3}
       propertyPath: moveWithTransform
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2861617758576387725, guid: 43fba05117969f34ea31d3c1b7854905, type: 3}
       propertyPath: VelocityModule.inWorldSpace
@@ -253,7 +253,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6764983832139653873, guid: 43fba05117969f34ea31d3c1b7854905, type: 3}
       propertyPath: moveWithTransform
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6764983832139653873, guid: 43fba05117969f34ea31d3c1b7854905, type: 3}
       propertyPath: VelocityModule.inWorldSpace
@@ -281,7 +281,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7157600628449418255, guid: 43fba05117969f34ea31d3c1b7854905, type: 3}
       propertyPath: moveWithTransform
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7157600628449418255, guid: 43fba05117969f34ea31d3c1b7854905, type: 3}
       propertyPath: VelocityModule.inWorldSpace
