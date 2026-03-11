@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Audio;
 
 public enum EnemyState
 {
@@ -9,6 +10,8 @@ public enum EnemyState
     Distracted,
     Stunned
 }
+
+
 
 public class Guard : MonoBehaviour
 {
@@ -118,6 +121,9 @@ public class Guard : MonoBehaviour
     public AudioClip[] searchClips;
     public AudioClip[] distractedClips;
     public AudioClip[] stunnedClips;
+
+    public AudioSource stunSource;
+    public AudioClip bonk;
 
 
     // -----------------------------
@@ -348,6 +354,10 @@ public class Guard : MonoBehaviour
         navMeshAgent.velocity = Vector3.zero;
 
         SetState(EnemyState.Stunned);
+        
+        
+        stunSource.PlayOneShot(bonk, 1.8f);
+        
     }
 
 
