@@ -13,9 +13,11 @@ public class PauseMenu : MonoBehaviour
 
     public GameObject mainPage;
     public GameObject settingsPage;
+    public GameObject controlsPanel;
 
     public GameObject firstButtonOnSettingsPage;
     public GameObject firstButtonOnMainPage;
+    public GameObject firstButtonOnControlsPage;
 
     private bool paused;
     private bool lost = false;
@@ -48,7 +50,9 @@ public class PauseMenu : MonoBehaviour
     public void OpenSettingsPage()
     {
         mainPage.SetActive(false);
+        controlsPanel.SetActive(false);
         settingsPage.SetActive(true);
+        
 
         // Clear selection first
         EventSystem.current.SetSelectedGameObject(null);
@@ -57,9 +61,24 @@ public class PauseMenu : MonoBehaviour
         EventSystem.current.SetSelectedGameObject(firstButtonOnSettingsPage);
     }
 
+    public void OpenControlsPage()
+    {
+        mainPage.SetActive(false);
+        controlsPanel.SetActive(true);
+        settingsPage.SetActive(false);
+
+
+        // Clear selection first
+        EventSystem.current.SetSelectedGameObject(null);
+
+        // Set new selected button
+        EventSystem.current.SetSelectedGameObject(firstButtonOnControlsPage);
+    }
+
     public void OpenMainPage()
     {
         mainPage.SetActive(true);
+        controlsPanel.SetActive(false);
         settingsPage.SetActive(false);
 
         EventSystem.current.SetSelectedGameObject(null);
